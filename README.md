@@ -1,76 +1,477 @@
-# Desafio backend Mottu.
-Seja muito bem-vindo ao desafio backend da Mottu, obrigado pelo interesse em fazer parte do nosso time e ajudar a melhorar a vida de milhares de pessoas.
+# 🏍️ Mottu - Sistema de Aluguel de Motos e Gestão de Entregadores
 
-## Instruções
-- O desafio é válido para diversos níveis, portanto não se preocupe se não conseguir resolver por completo.
-- A aplicação só será avaliada se estiver rodando, se necessário crie um passo a passo para isso.
-- Faça um clone do repositório em seu git pessoal para iniciar o desenvolvimento e não cite nada relacionado a Mottu.
-- Após teste realizado, favor encaminha-lo via Link abaixo:
-Link: [Formulário - Mottu - Desafio Backend](https://forms.office.com/r/25yMPCax5S)
+Sistema completo desenvolvido em .NET 8 com Clean Architecture, DDD, CQRS e Event-Driven Architecture para gerenciamento de aluguel de motos e cadastro de entregadores.
 
-## Requisitos não funcionais 
-- A aplicação deverá ser construida com .Net utilizando C#.
-- Utilizar apenas os seguintes bancos de dados (Postgress, MongoDB)
-    - Não utilizar PL/pgSQL
-- Escolha o sistema de mensageria de sua preferencia( RabbitMq, Sqs/Sns , Kafka, Gooogle Pub/Sub ou qualquer outro)
+## 📋 Índice
 
-## Aplicação a ser desenvolvida
-Seu objetivo é criar uma aplicação para gerenciar aluguel de motos e entregadores. Quando um entregador estiver registrado e com uma locação ativa poderá também efetuar entregas de pedidos disponíveis na plataforma.
+- [Visão Geral](#visão-geral)
+- [Arquitetura](#arquitetura)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
+- [Como Executar](#como-executar)
+- [Endpoints da API](#endpoints-da-api)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Testes](#testes)
+- [Design Patterns](#design-patterns)
 
-Iremos executar um teste de integração para validar os cenários de uso. Por isso, sua aplicação deve seguir exatamente as especificações de API`s Rest do nosso Swager: request, response e status code.
-Garanta que os atributos dos JSON`s e estão de acordo com o Swagger abaixo.
+## 🎯 Visão Geral
 
-Swagger de referência:
-https://app.swaggerhub.com/apis-docs/Mottu/mottu_desafio_backend/1.0.0
+Este projeto implementa uma solução completa para:
+- ✅ Cadastro e gerenciamento de motos
+- ✅ Cadastro e gerenciamento de entregadores
+- ✅ Sistema de locação de motos com múltiplos planos
+- ✅ Cálculo automático de multas e diárias extras
+- ✅ Upload de CNH com validação de formato
+- ✅ Sistema de mensageria para eventos de negócio
+- ✅ Armazenamento de eventos históricos
 
-### Casos de uso
-- Eu como usuário admin quero cadastrar uma nova moto.
-  - Os dados obrigatórios da moto são Identificador, Ano, Modelo e Placa
-  - A placa é um dado único e não pode se repetir.
-  - Quando a moto for cadastrada a aplicação deverá gerar um evento de moto cadastrada
-    - A notificação deverá ser publicada por mensageria.
-    - Criar um consumidor para notificar quando o ano da moto for "2024"
-    - Assim que a mensagem for recebida, deverá ser armazenada no banco de dados para consulta futura.
-- Eu como usuário admin quero consultar as motos existentes na plataforma e conseguir filtrar pela placa.
-- Eu como usuário admin quero modificar uma moto alterando apenas sua placa que foi cadastrado indevidamente
-- Eu como usuário admin quero remover uma moto que foi cadastrado incorretamente, desde que não tenha registro de locações.
-- Eu como usuário entregador quero me cadastrar na plataforma para alugar motos.
-    - Os dados do entregador são( identificador, nome, cnpj, data de nascimento, número da CNHh, tipo da CNH, imagemCNH)
-    - Os tipos de cnh válidos são A, B ou ambas A+B.
-    - O cnpj é único e não pode se repetir.
-    - O número da CNH é único e não pode se repetir.
-- Eu como entregador quero enviar a foto de minha cnh para atualizar meu cadastro.
-    - O formato do arquivo deve ser png ou bmp.
-    - A foto não poderá ser armazenada no banco de dados, você pode utilizar um serviço de storage( disco local, amazon s3, minIO ou outros).
-- Eu como entregador quero alugar uma moto por um período.
-    - Os planos disponíveis para locação são:
-        - 7 dias com um custo de R$30,00 por dia
-        - 15 dias com um custo de R$28,00 por dia
-        - 30 dias com um custo de R$22,00 por dia
-        - 45 dias com um custo de R$20,00 por dia
-        - 50 dias com um custo de R$18,00 por dia
-    - A locação obrigatóriamente tem que ter uma data de inicio e uma data de término e outra data de previsão de término.
-    - O inicio da locação obrigatóriamente é o primeiro dia após a data de criação.
-    - Somente entregadores habilitados na categoria A podem efetuar uma locação
-- Eu como entregador quero informar a data que irei devolver a moto e consultar o valor total da locação.
-    - Quando a data informada for inferior a data prevista do término, será cobrado o valor das diárias e uma multa adicional
-        - Para plano de 7 dias o valor da multa é de 20% sobre o valor das diárias não efetivadas.
-        - Para plano de 15 dias o valor da multa é de 40% sobre o valor das diárias não efetivadas.
-    - Quando a data informada for superior a data prevista do término, será cobrado um valor adicional de R$50,00 por diária adicional.
-    
+## 🏗️ Arquitetura
 
-## Diferenciais 🚀
-- Testes unitários
-- Testes de integração
-- EntityFramework e/ou Dapper
-- Docker e Docker Compose
-- Design Patterns
-- Documentação
-- Tratamento de erros
-- Arquitetura e modelagem de dados
-- Código escrito em língua inglesa
-- Código limpo e organizado
-- Logs bem estruturados
-- Seguir convenções utilizadas pela comunidade
-  
+### Clean Architecture (Hexagonal)
 
+```
+┌─────────────────────────────────────────────────┐
+│              API Layer (Controllers)            │
+├─────────────────────────────────────────────────┤
+│         Application Layer (Use Cases)           │
+│    Commands, Queries, Validators, DTOs          │
+├─────────────────────────────────────────────────┤
+│          Domain Layer (Business Logic)          │
+│   Entities, Value Objects, Domain Events        │
+├─────────────────────────────────────────────────┤
+│       Infrastructure Layer (External)           │
+│  PostgreSQL, MongoDB, RabbitMQ, File Storage    │
+└─────────────────────────────────────────────────┘
+```
+
+### Principais Padrões Implementados
+
+- **Clean Architecture**: Separação clara de responsabilidades
+- **Domain-Driven Design (DDD)**: Modelagem rica do domínio
+- **CQRS**: Separação de Commands e Queries
+- **Repository Pattern**: Abstração de persistência
+- **Unit of Work**: Gerenciamento de transações
+- **Mediator Pattern**: Desacoplamento via MediatR
+- **Result Pattern**: Tratamento explícito de erros
+- **Strategy Pattern**: Cálculo de multas por plano
+- **Specification Pattern**: Regras de negócio encapsuladas
+
+## 🚀 Tecnologias Utilizadas
+
+### Backend
+- **.NET 8** (LTS) - Framework principal
+- **C# 12** - Linguagem de programação
+- **ASP.NET Core Web API** - REST API
+
+### Bancos de Dados
+- **PostgreSQL 16** - Banco relacional (dados transacionais)
+- **MongoDB 7** - Banco NoSQL (eventos e logs)
+
+### Mensageria
+- **RabbitMQ 3** - Message Broker
+- **MassTransit 8.5** - Abstração de mensageria
+
+### ORM e Data Access
+- **Entity Framework Core 9** - ORM principal
+- **MongoDB Driver 3.5** - Driver oficial MongoDB
+
+### Logging
+- **Serilog** - Structured logging
+
+### Testes
+- **xUnit** - Framework de testes
+- **FluentAssertions** - Assertions fluentes
+- **Moq** - Mocking framework
+- **Testcontainers** - Containers para testes de integração
+
+### DevOps
+- **Docker** - Containerização
+- **Docker Compose** - Orquestração local
+
+## ✅ Pré-requisitos
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Git](https://git-scm.com/)
+
+## 🏃 Como Executar
+
+### Opção 1: Com Docker Compose (Recomendado)
+
+1. Clone o repositório:
+```bash
+git clone <seu-repositorio>
+cd Desafio-BackEnd
+```
+
+2. Inicie todos os serviços:
+```bash
+docker-compose up -d
+```
+
+3. Aguarde os serviços iniciarem (aproximadamente 30 segundos)
+
+4. Acesse a aplicação:
+- **API**: http://localhost:5000
+- **Swagger UI**: http://localhost:5000
+- **RabbitMQ Management**: http://localhost:15672 (guest/guest)
+- **MinIO Console**: http://localhost:9001 (minioadmin/minioadmin)
+
+5. Para parar os serviços:
+```bash
+docker-compose down
+```
+
+### Opção 2: Executar Localmente (Desenvolvimento)
+
+1. Inicie os serviços de infraestrutura:
+```bash
+docker-compose up postgres mongodb rabbitmq minio -d
+```
+
+2. Instale o EF Core Tools (se necessário):
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+3. Execute as migrations:
+```bash
+dotnet ef database update --project src/Mottu.Infrastructure --startup-project src/Mottu.API
+```
+
+4. Execute a API:
+```bash
+cd src/Mottu.API
+dotnet run
+```
+
+5. Acesse: http://localhost:5000
+
+## 📡 Endpoints da API
+
+### Motos
+
+#### POST /motos
+Cadastrar uma nova moto
+
+```json
+{
+  "identificador": "moto-001",
+  "ano": 2024,
+  "modelo": "Honda CG 160",
+  "placa": "ABC1D23"
+}
+```
+
+#### GET /motos
+Consultar motos (com filtro opcional por placa)
+
+```
+GET /motos
+GET /motos?placa=ABC1D23
+```
+
+#### GET /motos/{id}
+Consultar moto por ID
+
+#### PUT /motos/{id}/placa
+Modificar a placa de uma moto
+
+```json
+{
+  "placa": "XYZ9W88"
+}
+```
+
+#### DELETE /motos/{id}
+Remover uma moto (apenas se não tiver locações)
+
+### Entregadores
+
+#### POST /entregadores
+Cadastrar um entregador
+
+```json
+{
+  "identificador": "entregador-001",
+  "nome": "João Silva",
+  "cnpj": "12345678000190",
+  "data_nascimento": "1990-05-15",
+  "numero_cnh": "12345678901",
+  "tipo_cnh": "A"
+}
+```
+
+#### POST /entregadores/{id}/cnh
+Enviar foto da CNH (multipart/form-data)
+
+```
+Content-Type: multipart/form-data
+imagem_cnh: [arquivo.png ou arquivo.bmp]
+```
+
+### Locações
+
+#### POST /locacao
+Criar uma locação
+
+```json
+{
+  "entregador_id": "guid-do-entregador",
+  "moto_id": "guid-da-moto",
+  "data_inicio": "2024-10-18",
+  "data_termino": "2024-10-25",
+  "data_previsao_termino": "2024-10-25",
+  "plano": 7
+}
+```
+
+**Planos disponíveis:**
+- 7 dias: R$ 30,00/dia (multa 20% se devolver antes)
+- 15 dias: R$ 28,00/dia (multa 40% se devolver antes)
+- 30 dias: R$ 22,00/dia
+- 45 dias: R$ 20,00/dia
+- 50 dias: R$ 18,00/dia
+
+**Regras:**
+- Devolução antecipada: multa sobre dias não utilizados
+- Devolução atrasada: R$ 50,00 por dia adicional
+
+#### GET /locacao/{id}/valor
+Consultar valor total da locação
+
+```
+GET /locacao/{id}/valor?data_devolucao=2024-10-25
+```
+
+## 📁 Estrutura do Projeto
+
+```
+Desafio-BackEnd/
+├── src/
+│   ├── Mottu.Domain/              # Lógica de negócio pura
+│   │   ├── Entities/              # Motorcycle, DeliveryDriver, Rental
+│   │   ├── ValueObjects/          # LicensePlate, CNPJ, CNH, RentalPlan
+│   │   ├── Events/                # Domain Events
+│   │   ├── Interfaces/            # Repository interfaces
+│   │   └── Specifications/        # Business rules
+│   │
+│   ├── Mottu.Application/         # Use Cases (CQRS)
+│   │   ├── Commands/              # Write operations
+│   │   ├── Queries/               # Read operations
+│   │   ├── DTOs/                  # Data Transfer Objects
+│   │   ├── Validators/            # FluentValidation rules
+│   │   └── Behaviors/             # MediatR pipelines
+│   │
+│   ├── Mottu.Infrastructure/      # External services
+│   │   ├── Persistence/
+│   │   │   ├── PostgreSQL/        # EF Core + Repositories
+│   │   │   └── MongoDB/           # Events storage
+│   │   ├── Messaging/             # RabbitMQ + MassTransit
+│   │   └── Storage/               # File storage
+│   │
+│   ├── Mottu.API/                 # REST API
+│   │   ├── Controllers/           # API endpoints
+│   │   ├── Middleware/            # Exception handling
+│   │   └── Program.cs             # App configuration
+│   │
+│   └── Mottu.Shared/              # Common utilities
+│       ├── Results/               # Result pattern
+│       └── Extensions/            # Helper methods
+│
+├── tests/
+│   ├── Mottu.UnitTests/           # Unit tests
+│   ├── Mottu.IntegrationTests/    # Integration tests
+│   └── Mottu.ArchitectureTests/   # Architecture tests
+│
+├── docker-compose.yml             # Infrastructure setup
+├── Dockerfile                     # API containerization
+└── README.md                      # This file
+```
+
+## 🧪 Testes
+
+### Executar Testes Unitários
+
+```bash
+dotnet test tests/Mottu.UnitTests
+```
+
+### Executar Testes de Integração
+
+```bash
+dotnet test tests/Mottu.IntegrationTests
+```
+
+### Executar Todos os Testes
+
+```bash
+dotnet test
+```
+
+### Coverage Report
+
+```bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+```
+
+## 🎨 Design Patterns Implementados
+
+### 1. Clean Architecture
+Separação em camadas com dependências apontando para o centro (Domain).
+
+### 2. Domain-Driven Design (DDD)
+- **Entities**: Motorcycle, DeliveryDriver, Rental
+- **Value Objects**: LicensePlate, CNPJ, CNH, RentalPlan, Money
+- **Aggregates**: Cada entity é seu próprio aggregate root
+- **Domain Events**: MotorcycleRegistered, RentalCreated, RentalCompleted
+
+### 3. CQRS
+Separação completa entre Commands (write) e Queries (read).
+
+### 4. Repository Pattern
+Abstração de acesso a dados com interfaces no Domain.
+
+### 5. Unit of Work
+Gerenciamento de transações e consistência.
+
+### 6. Mediator Pattern (MediatR)
+Desacoplamento de handlers com pipeline de behaviors.
+
+### 7. Result Pattern
+Tratamento de erros explícito sem exceptions.
+
+```csharp
+var result = await _mediator.Send(command);
+if (result.IsFailure)
+{
+    return BadRequest(result.Error);
+}
+return Ok(result.Value);
+```
+
+### 8. Strategy Pattern
+Cálculo de multas baseado no plano de locação.
+
+### 9. Specification Pattern
+Regras de negócio encapsuladas (ex: CanRentMotorcycle).
+
+### 10. Factory Pattern
+Criação de RentalPlans com regras específicas.
+
+## 🔒 Segurança
+
+- ✅ Validação de entrada em todos os endpoints (FluentValidation)
+- ✅ SQL Injection: Prevenido via EF Core parametrizado
+- ✅ File Upload: Validação de extensão (whitelist: png, bmp)
+- ✅ Domain Validation: Value Objects garantem estado sempre válido
+- ✅ Concorrência: Unique constraints (placa, cnpj, cnh)
+
+## 📊 Observabilidade
+
+### Logs Estruturados (Serilog)
+Todos os logs são estruturados em JSON com contexto:
+
+```json
+{
+  "Timestamp": "2024-10-17T12:00:00Z",
+  "Level": "Information",
+  "MessageTemplate": "Motorcycle registered successfully",
+  "Properties": {
+    "MotorcycleId": "guid",
+    "Application": "Mottu.RentalService"
+  }
+}
+```
+
+### Métricas
+- Tempo de execução de cada comando/query (LoggingBehavior)
+- Logs de erros com stack trace completo
+- Correlation ID em todas as requisições
+
+## 🐛 Troubleshooting
+
+### Problema: "Connection refused" ao conectar no PostgreSQL
+
+**Solução**: Aguarde alguns segundos após o `docker-compose up`. Use `docker-compose ps` para verificar se todos os containers estão "healthy".
+
+### Problema: EF Core migrations não aplicadas
+
+**Solução**: Execute manualmente:
+```bash
+dotnet ef database update --project src/Mottu.Infrastructure --startup-project src/Mottu.API
+```
+
+### Problema: RabbitMQ não recebe mensagens
+
+**Solução**: Verifique se o RabbitMQ está rodando:
+```bash
+docker-compose logs rabbitmq
+```
+
+### Problema: Erro ao fazer upload de imagem
+
+**Solução**: Certifique-se de que o diretório `storage/` tem permissões de escrita e que o arquivo é PNG ou BMP.
+
+## 📝 Convenções de Código
+
+- **Código em Inglês**: Classes, métodos, variáveis
+- **DTOs em Português**: Conforme especificação Swagger Mottu
+- **snake_case**: Colunas do banco de dados
+- **PascalCase**: Classes, métodos, propriedades públicas
+- **camelCase**: Variáveis locais, parâmetros
+- **Async suffix**: Todos os métodos assíncronos
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto foi desenvolvido como parte do desafio técnico da Mottu.
+
+## 👥 Autor
+
+Desenvolvido com ❤️ seguindo as melhores práticas de Clean Architecture, DDD e SOLID.
+
+---
+
+## 🎯 Checklist de Implementação
+
+- ✅ Clean Architecture implementada
+- ✅ Domain-Driven Design com Entities, Value Objects e Events
+- ✅ CQRS com MediatR
+- ✅ PostgreSQL com EF Core
+- ✅ MongoDB para eventos
+- ✅ RabbitMQ com MassTransit
+- ✅ File Storage (Local com suporte para MinIO/S3)
+- ✅ Serilog structured logging
+- ✅ FluentValidation
+- ✅ Result Pattern para tratamento de erros
+- ✅ Docker Compose completo
+- ✅ Swagger/OpenAPI
+- ✅ Testes unitários (estrutura)
+- ✅ Testes de integração (estrutura)
+- ✅ Documentação completa
+
+## 🚀 Próximos Passos
+
+Para produção, considere adicionar:
+- [ ] Autenticação e Autorização (JWT)
+- [ ] Rate Limiting
+- [ ] Redis para caching
+- [ ] Elasticsearch para logs
+- [ ] Prometheus + Grafana para métricas
+- [ ] Kubernetes deployment
+- [ ] CI/CD Pipeline
+- [ ] API Versioning
+- [ ] Health Checks avançados
+- [ ] Feature Flags
+
+---
+
+**Mottu Rental Service** - Sistema completo de aluguel de motos 🏍️
