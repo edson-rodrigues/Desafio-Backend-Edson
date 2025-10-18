@@ -34,7 +34,7 @@ public class MotorcycleRegistered2024Consumer : IConsumer<MotorcycleRegisteredEv
         var document = new MotorcycleEventDocument
         {
             Id = Guid.NewGuid().ToString(),
-            MotorcycleId = message.MotorcycleId,
+            MotorcycleId = message.MotorcycleId.ToString(), // Convert Guid to string
             Identifier = message.Identifier,
             Year = message.Year,
             Model = message.Model,

@@ -21,13 +21,13 @@ public class MongoDbContext
     }
 
     public IMongoCollection<MotorcycleEventDocument> MotorcycleEvents =>
-        _database.GetCollection<MotorcycleEventDocument>("motorcycle_events");
+        _database.GetCollection<MotorcycleEventDocument>("motorcycle_events_2024");
 }
 
 public class MotorcycleEventDocument
 {
     public string Id { get; set; } = string.Empty;
-    public Guid MotorcycleId { get; set; }
+    public string MotorcycleId { get; set; } = string.Empty; // Changed from Guid to string
     public string Identifier { get; set; } = string.Empty;
     public int Year { get; set; }
     public string Model { get; set; } = string.Empty;
