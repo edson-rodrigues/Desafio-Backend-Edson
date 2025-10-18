@@ -57,13 +57,17 @@ public static class DependencyInjection
         // Event Publisher
         services.AddScoped<IEventPublisher, EventPublisher>();
 
-        // File Storage
-        services.AddScoped<IFileStorageService, LocalFileStorageService>(sp =>
+        // MinIO Storage
+        services.Configure<MinIOSettings>(options =>
         {
-            var logger = sp.GetRequiredService<Microsoft.Extensions.Logging.ILogger<LocalFileStorageService>>();
-            var storagePath = configuration["Storage:LocalPath"] ?? "storage";
-            return new LocalFileStorageService(logger, storagePath);
+            var minioSettings = configuration.GetSection("MinIO");
+            options.Endpoint = minioSettings["Endpoint"] ?? "localhost:9000";
+            options.AccessKey = minioSettings["AccessKey"] ?? "minioadmin";
+            options.SecretKey = minioSettings["SecretKey"] ?? "minioadmin";
+            options.BucketName = minioSettings["BucketName"] ?? "cnh-images";
+            options.UseSSL = bool.Parse(minioSettings["UseSSL"] ?? "false");
         });
+        services.AddScoped<IFileStorageService, MinIOFileStorageService>();
 
         return services;
     }
