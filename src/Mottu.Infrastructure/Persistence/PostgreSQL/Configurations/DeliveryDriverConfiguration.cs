@@ -69,10 +69,6 @@ public class DeliveryDriverConfiguration : IEntityTypeConfiguration<DeliveryDriv
             .IsUnique()
             .HasDatabaseName("ix_delivery_drivers_cnpj");
 
-        builder.HasIndex("CNH_Number")
-            .IsUnique()
-            .HasDatabaseName("ix_delivery_drivers_cnh_number");
-
         builder.HasIndex(d => d.Identifier)
             .HasDatabaseName("ix_delivery_drivers_identifier");
     }
