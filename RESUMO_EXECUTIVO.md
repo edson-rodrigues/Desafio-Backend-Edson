@@ -1,4 +1,4 @@
-# 📊 Resumo Executivo - Implementação Mottu Rental Service
+# 📊 Resumo Executivo - Implementação do Sistema de Aluguel
 
 ## ✅ STATUS: 100% CONCLUÍDO E TESTADO
 
@@ -67,16 +67,16 @@
 ```
 📦 Desafio-BackEnd/
 ├── 📂 src/
-│   ├── 📂 Mottu.Domain/           (13 arquivos - Entities, Value Objects, Events)
-│   ├── 📂 Mottu.Application/      (19 arquivos - Commands, Queries, Validators)
-│   ├── 📂 Mottu.Infrastructure/   (10 arquivos - DB, Messaging, Storage)
-│   ├── 📂 Mottu.API/              (7 arquivos - Controllers, Middleware)
-│   └── 📂 Mottu.Shared/           (3 arquivos - Result Pattern, Extensions)
+│   ├── 📂 Sistema.Domain/           (13 arquivos - Entities, Value Objects, Events)
+│   ├── 📂 Sistema.Application/      (19 arquivos - Commands, Queries, Validators)
+│   ├── 📂 Sistema.Infrastructure/   (10 arquivos - DB, Messaging, Storage)
+│   ├── 📂 Sistema.API/              (7 arquivos - Controllers, Middleware)
+│   └── 📂 Sistema.Shared/           (3 arquivos - Result Pattern, Extensions)
 │
 ├── 📂 tests/
-│   ├── 📂 Mottu.UnitTests/        (3 testes exemplo + estrutura)
-│   ├── 📂 Mottu.IntegrationTests/ (estrutura pronta)
-│   └── 📂 Mottu.ArchitectureTests/(estrutura pronta)
+│   ├── 📂 Sistema.UnitTests/        (3 testes exemplo + estrutura)
+│   ├── 📂 Sistema.IntegrationTests/ (estrutura pronta)
+│   └── 📂 Sistema.ArchitectureTests/(estrutura pronta)
 │
 ├── 📂 scripts/
 │   ├── setup.sh                   (setup Linux/Mac)
@@ -388,6 +388,6 @@ Para produção, adicionar:
 
 ---
 
-**Desenvolvido com ❤️ seguindo as melhores práticas da indústria**  
+**Desenvolvido por Edson Gonçalves com ❤️ seguindo as melhores práticas da indústria**  
 **.NET 8 | Clean Architecture | DDD | CQRS | Event-Driven** 🚀
 

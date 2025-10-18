@@ -1,4 +1,4 @@
-# 🚀 Como Começar - Mottu Rental Service
+# 🚀 Como Começar - Sistema de Aluguel de Motos
 
 ## ✅ Status: IMPLEMENTAÇÃO COMPLETA E FUNCIONAL
 
@@ -347,5 +347,5 @@ A aplicação está **100% funcional** e pronta para testes!
 
 ---
 
-**Desenvolvido com ❤️ em .NET 8 + Clean Architecture + DDD** 🚀
+**Desenvolvido por Edson Gonçalves com ❤️ em .NET 8 + Clean Architecture + DDD** 🚀
 

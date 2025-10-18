@@ -1,4 +1,4 @@
-# Arquitetura Completa - Implementação do Sistema de Aluguel de Motos Mottu
+# Arquitetura Completa - Implementação do Sistema de Aluguel de Motos Sistema
 
 ## Status da Implementação: 85% Concluído
 
@@ -7,17 +7,17 @@ Este documento apresenta um resumo completo da arquitetura implementada, justifi
 ## 1. Estrutura da Solução ✅ COMPLETO
 
 ```
-Mottu.RentalService/
+Sistema.RentalService/
 ├── src/
-│   ├── Mottu.Domain/                    ✅ Implementado
-│   ├── Mottu.Application/               ✅ Implementado
-│   ├── Mottu.Infrastructure/            ✅ Implementado
-│   ├── Mottu.API/                       ⚠️  Parcialmente implementado
-│   └── Mottu.Shared/                    ✅ Implementado
+│   ├── Sistema.Domain/                    ✅ Implementado
+│   ├── Sistema.Application/               ✅ Implementado
+│   ├── Sistema.Infrastructure/            ✅ Implementado
+│   ├── Sistema.API/                       ⚠️  Parcialmente implementado
+│   └── Sistema.Shared/                    ✅ Implementado
 ├── tests/
-│   ├── Mottu.UnitTests/                 ⏳ Estrutura criada
-│   ├── Mottu.IntegrationTests/          ⏳ Estrutura criada
-│   └── Mottu.ArchitectureTests/         ⏳ Estrutura criada
+│   ├── Sistema.UnitTests/                 ⏳ Estrutura criada
+│   ├── Sistema.IntegrationTests/          ⏳ Estrutura criada
+│   └── Sistema.ArchitectureTests/         ⏳ Estrutura criada
 └── docker-compose.yml                   ⏳ Pendente
 ```
 
@@ -133,7 +133,7 @@ public class RegisterMotorcycleCommandValidator : AbstractValidator<RegisterMoto
 ```
 
 ### 3.4 DTOs
-Implementados com nomenclatura em português conforme especificação Swagger Mottu:
+Implementados com nomenclatura em português conforme especificação Swagger Sistema:
 - MotorcycleDto (identificador, ano, modelo, placa)
 - DeliveryDriverDto (identificador, nome, cnpj, data_nascimento, numero_cnh, tipo_cnh, imagem_cnh)
 - RentalDto (identificador, entregador_id, moto_id, data_inicio, data_termino, data_previsao_termino, plano, valor_diaria)
@@ -338,7 +338,7 @@ Encapsula regras de negócio complexas (CanRentMotorcycle).
 ```csharp
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
-    .Enrich.WithProperty("Application", "Mottu.RentalService")
+    .Enrich.WithProperty("Application", "Sistema.RentalService")
     .WriteTo.Console()
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
@@ -407,7 +407,7 @@ Formato padrão para erros HTTP:
 
 ### 13.1 Swagger/OpenAPI
 - Auto-gerado via Swashbuckle.AspNetCore
-- Compatível com especificação Mottu
+- Compatível com especificação Sistema
 - XML comments para enrich documentation
 
 ### 13.2 Código
@@ -419,7 +419,7 @@ Formato padrão para erros HTTP:
 
 ### 14.1 Código em Inglês
 - Classes, métodos, variáveis em inglês
-- DTOs e propriedades JSON em português (conforme spec Mottu)
+- DTOs e propriedades JSON em português (conforme spec Sistema)
 
 ### 14.2 Naming Conventions
 - PascalCase: Classes, métodos, propriedades

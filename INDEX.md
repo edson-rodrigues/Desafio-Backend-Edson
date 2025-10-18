@@ -1,4 +1,4 @@
-# 📑 Índice de Navegação - Mottu Rental Service
+# 📑 Índice de Navegação - Sistema de Aluguel de Motos
 
 ## 🚀 COMEÇAR AQUI
 
@@ -38,9 +38,9 @@ Se você é novo no projeto, siga esta ordem:
 
 ## 🏗️ Estrutura do Código
 
-### Camada de Domínio (`src/Mottu.Domain/`)
+### Camada de Domínio (`src/Sistema.Domain/`)
 ```
-📦 Mottu.Domain
+📦 Sistema.Domain
 ├── 📂 Entities/              - Motorcycle, DeliveryDriver, Rental
 ├── 📂 ValueObjects/          - LicensePlate, CNPJ, CNH, RentalPlan
 ├── 📂 Events/                - Domain Events
@@ -51,9 +51,9 @@ Se você é novo no projeto, siga esta ordem:
 
 **Conceitos**: DDD, Entities, Value Objects, Domain Events
 
-### Camada de Aplicação (`src/Mottu.Application/`)
+### Camada de Aplicação (`src/Sistema.Application/`)
 ```
-📦 Mottu.Application
+📦 Sistema.Application
 ├── 📂 Commands/              - Write operations (CQRS)
 │   ├── Motorcycles/          - RegisterMotorcycle, UpdatePlate, Delete
 │   ├── DeliveryDrivers/      - RegisterDriver, UploadCNH
@@ -68,9 +68,9 @@ Se você é novo no projeto, siga esta ordem:
 
 **Conceitos**: CQRS, Mediator Pattern, Validation
 
-### Camada de Infraestrutura (`src/Mottu.Infrastructure/`)
+### Camada de Infraestrutura (`src/Sistema.Infrastructure/`)
 ```
-📦 Mottu.Infrastructure
+📦 Sistema.Infrastructure
 ├── 📂 Persistence/
 │   ├── PostgreSQL/           - EF Core DbContext, Repositories
 │   └── MongoDB/              - MongoDB context, Event storage
@@ -81,9 +81,9 @@ Se você é novo no projeto, siga esta ordem:
 
 **Conceitos**: Repository Pattern, EF Core, Event-Driven
 
-### Camada de API (`src/Mottu.API/`)
+### Camada de API (`src/Sistema.API/`)
 ```
-📦 Mottu.API
+📦 Sistema.API
 ├── 📂 Controllers/           - REST endpoints
 │   ├── MotorcyclesController.cs
 │   ├── DeliveryDriversController.cs
@@ -95,9 +95,9 @@ Se você é novo no projeto, siga esta ordem:
 
 **Conceitos**: REST API, Swagger, Middleware
 
-### Camada Compartilhada (`src/Mottu.Shared/`)
+### Camada Compartilhada (`src/Sistema.Shared/`)
 ```
-📦 Mottu.Shared
+📦 Sistema.Shared
 ├── 📂 Results/               - Result Pattern
 └── 📂 Extensions/            - Helper methods
 ```
@@ -106,18 +106,18 @@ Se você é novo no projeto, siga esta ordem:
 
 ## 🧪 Testes
 
-### Testes Unitários (`tests/Mottu.UnitTests/`)
+### Testes Unitários (`tests/Sistema.UnitTests/`)
 ```
-📦 Mottu.UnitTests
+📦 Sistema.UnitTests
 └── 📂 Domain/
     ├── Entities/             - MotorcycleTests.cs
     └── ValueObjects/         - LicensePlateTests, RentalPlanTests
 ```
 
-### Testes de Integração (`tests/Mottu.IntegrationTests/`)
+### Testes de Integração (`tests/Sistema.IntegrationTests/`)
 Estrutura pronta para expansão
 
-### Testes Arquiteturais (`tests/Mottu.ArchitectureTests/`)
+### Testes Arquiteturais (`tests/Sistema.ArchitectureTests/`)
 Estrutura pronta para validação de regras arquiteturais
 
 ---
@@ -182,13 +182,13 @@ docker-compose logs -f rabbitmq
 
 ### Compilar
 ```bash
-dotnet build Mottu.RentalService.sln
+dotnet build Sistema.RentalService.sln
 ```
 
 ### Testes
 ```bash
 dotnet test
-dotnet test tests/Mottu.UnitTests
+dotnet test tests/Sistema.UnitTests
 ```
 
 ### Parar Serviços
@@ -276,7 +276,7 @@ docker-compose logs -f
 ### Desenvolvedor Backend
 1. [README.md](README.md) - Documentação técnica
 2. [ARCHITECTURE_IMPLEMENTATION_SUMMARY.md](ARCHITECTURE_IMPLEMENTATION_SUMMARY.md) - Arquitetura
-3. Código em `src/Mottu.Domain/` - Domain layer
+3. Código em `src/Sistema.Domain/` - Domain layer
 
 ### DevOps / Infraestrutura
 1. [docker-compose.yml](docker-compose.yml) - Configuração de containers
@@ -344,5 +344,5 @@ docker-compose logs -f
 
 ---
 
-**Desenvolvido com ❤️ em .NET 8 + Clean Architecture + DDD**
+**Desenvolvido por Edson Gonçalves com ❤️ em .NET 8 + Clean Architecture + DDD**
 

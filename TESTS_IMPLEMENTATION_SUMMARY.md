@@ -67,13 +67,13 @@ Os testes validam:
 dotnet test
 
 # Apenas arquitetura
-dotnet test tests/Mottu.ArchitectureTests
+dotnet test tests/Sistema.ArchitectureTests
 
 # Apenas integração
-dotnet test tests/Mottu.IntegrationTests
+dotnet test tests/Sistema.IntegrationTests
 
 # Apenas unitários
-dotnet test tests/Mottu.UnitTests
+dotnet test tests/Sistema.UnitTests
 ```
 
 ---

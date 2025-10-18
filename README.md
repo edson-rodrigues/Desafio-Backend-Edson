@@ -1,4 +1,4 @@
-# 🏍️ Mottu - Sistema de Aluguel de Motos e Gestão de Entregadores
+# 🏍️ Sistema de Aluguel de Motos e Gestão de Entregadores
 
 Sistema completo desenvolvido em .NET 8 com Clean Architecture, DDD, CQRS e Event-Driven Architecture para gerenciamento de aluguel de motos e cadastro de entregadores.
 
@@ -136,12 +136,12 @@ dotnet tool install --global dotnet-ef
 
 3. Execute as migrations:
 ```bash
-dotnet ef database update --project src/Mottu.Infrastructure --startup-project src/Mottu.API
+dotnet ef database update --project src/Sistema.Infrastructure --startup-project src/Sistema.API
 ```
 
 4. Execute a API:
 ```bash
-cd src/Mottu.API
+cd src/Sistema.API
 dotnet run
 ```
 
@@ -249,40 +249,40 @@ GET /locacao/{id}/valor?data_devolucao=2024-10-25
 ```
 Desafio-BackEnd/
 ├── src/
-│   ├── Mottu.Domain/              # Lógica de negócio pura
+│   ├── Sistema.Domain/              # Lógica de negócio pura
 │   │   ├── Entities/              # Motorcycle, DeliveryDriver, Rental
 │   │   ├── ValueObjects/          # LicensePlate, CNPJ, CNH, RentalPlan
 │   │   ├── Events/                # Domain Events
 │   │   ├── Interfaces/            # Repository interfaces
 │   │   └── Specifications/        # Business rules
 │   │
-│   ├── Mottu.Application/         # Use Cases (CQRS)
+│   ├── Sistema.Application/         # Use Cases (CQRS)
 │   │   ├── Commands/              # Write operations
 │   │   ├── Queries/               # Read operations
 │   │   ├── DTOs/                  # Data Transfer Objects
 │   │   ├── Validators/            # FluentValidation rules
 │   │   └── Behaviors/             # MediatR pipelines
 │   │
-│   ├── Mottu.Infrastructure/      # External services
+│   ├── Sistema.Infrastructure/      # External services
 │   │   ├── Persistence/
 │   │   │   ├── PostgreSQL/        # EF Core + Repositories
 │   │   │   └── MongoDB/           # Events storage
 │   │   ├── Messaging/             # RabbitMQ + MassTransit
 │   │   └── Storage/               # File storage
 │   │
-│   ├── Mottu.API/                 # REST API
+│   ├── Sistema.API/                 # REST API
 │   │   ├── Controllers/           # API endpoints
 │   │   ├── Middleware/            # Exception handling
 │   │   └── Program.cs             # App configuration
 │   │
-│   └── Mottu.Shared/              # Common utilities
+│   └── Sistema.Shared/              # Common utilities
 │       ├── Results/               # Result pattern
 │       └── Extensions/            # Helper methods
 │
 ├── tests/
-│   ├── Mottu.UnitTests/           # Unit tests
-│   ├── Mottu.IntegrationTests/    # Integration tests
-│   └── Mottu.ArchitectureTests/   # Architecture tests
+│   ├── Sistema.UnitTests/           # Unit tests
+│   ├── Sistema.IntegrationTests/    # Integration tests
+│   └── Sistema.ArchitectureTests/   # Architecture tests
 │
 ├── docker-compose.yml             # Infrastructure setup
 ├── Dockerfile                     # API containerization
@@ -320,13 +320,13 @@ Cobrem regras de negócio e domínio:
 dotnet test
 
 # Apenas testes unitários
-dotnet test tests/Mottu.UnitTests
+dotnet test tests/Sistema.UnitTests
 
 # Apenas testes de integração
-dotnet test tests/Mottu.IntegrationTests
+dotnet test tests/Sistema.IntegrationTests
 
 # Apenas testes de arquitetura
-dotnet test tests/Mottu.ArchitectureTests
+dotnet test tests/Sistema.ArchitectureTests
 ```
 
 ### Resultado dos Testes
@@ -401,7 +401,7 @@ Todos os logs são estruturados em JSON com contexto:
   "MessageTemplate": "Motorcycle registered successfully",
   "Properties": {
     "MotorcycleId": "guid",
-    "Application": "Mottu.RentalService"
+    "Application": "Sistema.RentalService"
   }
 }
 ```
@@ -421,7 +421,7 @@ Todos os logs são estruturados em JSON com contexto:
 
 **Solução**: Execute manualmente:
 ```bash
-dotnet ef database update --project src/Mottu.Infrastructure --startup-project src/Mottu.API
+dotnet ef database update --project src/Sistema.Infrastructure --startup-project src/Sistema.API
 ```
 
 ### Problema: RabbitMQ não recebe mensagens
@@ -438,7 +438,7 @@ docker-compose logs rabbitmq
 ## 📝 Convenções de Código
 
 - **Código em Inglês**: Classes, métodos, variáveis
-- **DTOs em Português**: Conforme especificação Swagger Mottu
+- **DTOs em Português**: Conforme especificação Swagger Sistema
 - **snake_case**: Colunas do banco de dados
 - **PascalCase**: Classes, métodos, propriedades públicas
 - **camelCase**: Variáveis locais, parâmetros
@@ -454,7 +454,7 @@ docker-compose logs rabbitmq
 
 ## 📄 Licença
 
-Este projeto foi desenvolvido como parte do desafio técnico da Mottu.
+Este projeto foi desenvolvido como parte de um desafio técnico backend.
 
 ## 👥 Autor
 
@@ -496,4 +496,4 @@ Para produção, considere adicionar:
 
 ---
 
-**Mottu Rental Service** - Sistema completo de aluguel de motos 🏍️
+**Sistema de Aluguel de Motos** - Solução completa desenvolvida por Edson 🏍️

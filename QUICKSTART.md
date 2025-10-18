@@ -1,4 +1,4 @@
-# 🚀 Quick Start Guide - Mottu Rental Service
+# 🚀 Quick Start Guide - Sistema de Aluguel de Motos
 
 ## Execução em 3 Passos
 
@@ -141,7 +141,7 @@ docker-compose up postgres mongodb rabbitmq minio -d
 export ConnectionStrings__DefaultConnection="Host=localhost;Port=5432;Database=mottu_rental;Username=admin;Password=admin123"
 
 # 3. Execute a API
-cd src/Mottu.API
+cd src/Sistema.API
 dotnet run
 
 # 4. Acesse: http://localhost:5000
@@ -151,19 +151,18 @@ dotnet run
 
 ```bash
 # Testes unitários
-dotnet test tests/Mottu.UnitTests
+dotnet test tests/Sistema.UnitTests
 
 # Testes de integração
-dotnet test tests/Mottu.IntegrationTests
+dotnet test tests/Sistema.IntegrationTests
 
 # Todos os testes
 dotnet test
 ```
 
-## 📝 Especificação Swagger
+## 📝 Especificação da API
 
-A API segue exatamente a especificação:
-https://app.swaggerhub.com/apis-docs/Mottu/mottu_desafio_backend/1.0.0
+A API segue as especificações REST com documentação completa via Swagger/OpenAPI.
 
 ## 🐛 Troubleshooting
 

@@ -1,4 +1,4 @@
-# ✅ Implementação Completa - Mottu Rental Service
+# ✅ Implementação Completa - Sistema de Aluguel de Motos
 
 ## 🎉 Status: 100% CONCLUÍDO
 
@@ -228,7 +228,7 @@ A solução completa foi implementada com sucesso seguindo as melhores práticas
 - ✅ MongoDB
 - ✅ RabbitMQ (mensageria)
 - ✅ Sem PL/pgSQL
-- ✅ Swagger compatível com especificação Mottu
+- ✅ Swagger compatível com especificação Sistema
 
 ### Diferenciais Implementados ✅
 - ✅ Testes unitários (estrutura + exemplos)
@@ -250,15 +250,15 @@ A solução completa foi implementada com sucesso seguindo as melhores práticas
 ```
 Desafio-BackEnd/
 ├── src/
-│   ├── Mottu.Domain/           ✅ 13 arquivos
-│   ├── Mottu.Application/      ✅ 19 arquivos
-│   ├── Mottu.Infrastructure/   ✅ 10 arquivos
-│   ├── Mottu.API/              ✅ 7 arquivos
-│   └── Mottu.Shared/           ✅ 3 arquivos
+│   ├── Sistema.Domain/           ✅ 13 arquivos
+│   ├── Sistema.Application/      ✅ 19 arquivos
+│   ├── Sistema.Infrastructure/   ✅ 10 arquivos
+│   ├── Sistema.API/              ✅ 7 arquivos
+│   └── Sistema.Shared/           ✅ 3 arquivos
 ├── tests/
-│   ├── Mottu.UnitTests/        ✅ 3 arquivos exemplo
-│   ├── Mottu.IntegrationTests/ ✅ Estrutura
-│   └── Mottu.ArchitectureTests/✅ Estrutura
+│   ├── Sistema.UnitTests/        ✅ 3 arquivos exemplo
+│   ├── Sistema.IntegrationTests/ ✅ Estrutura
+│   └── Sistema.ArchitectureTests/✅ Estrutura
 ├── scripts/
 │   ├── setup.sh                ✅
 │   └── setup.ps1               ✅
