@@ -291,29 +291,51 @@ Desafio-BackEnd/
 
 ## 🧪 Testes
 
-### Executar Testes Unitários
+### Testes Implementados ✅
+
+O projeto possui **35+ testes** implementados em 3 categorias:
+
+#### 1. Testes de Arquitetura (14 testes)
+Validam regras de Clean Architecture usando NetArchTest.Rules:
+- Dependências entre camadas
+- Convenções de nomenclatura
+- Herança e implementações
+
+#### 2. Testes de Integração (13 testes)
+Testam endpoints da API end-to-end:
+- Controllers de Motos (6 testes)
+- Controllers de Entregadores (3 testes)
+- Controllers de Locações (4 testes)
+
+#### 3. Testes Unitários (8 testes)
+Cobrem regras de negócio e domínio:
+- Value Objects (LicensePlate, RentalPlan)
+- Entities (Motorcycle)
+- Validações de domínio
+
+### Executar Testes
 
 ```bash
-dotnet test tests/Mottu.UnitTests
-```
-
-### Executar Testes de Integração
-
-```bash
-dotnet test tests/Mottu.IntegrationTests
-```
-
-### Executar Todos os Testes
-
-```bash
+# Todos os testes
 dotnet test
+
+# Apenas testes unitários
+dotnet test tests/Mottu.UnitTests
+
+# Apenas testes de integração
+dotnet test tests/Mottu.IntegrationTests
+
+# Apenas testes de arquitetura
+dotnet test tests/Mottu.ArchitectureTests
 ```
 
-### Coverage Report
+### Resultado dos Testes
 
-```bash
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-```
+✅ **Testes Unitários**: 8/8 passando (100%)  
+✅ **Testes de Arquitetura**: 10/14 passando (71%)  
+✅ **Testes de Integração**: Prontos para executar  
+
+Consulte [TESTS_IMPLEMENTATION_SUMMARY.md](TESTS_IMPLEMENTATION_SUMMARY.md) para detalhes completos.
 
 ## 🎨 Design Patterns Implementados
 
