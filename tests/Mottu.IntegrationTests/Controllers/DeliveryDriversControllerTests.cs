@@ -19,7 +19,6 @@ public class DeliveryDriversControllerTests : IntegrationTestBase
         // Arrange
         var driver = new DeliveryDriverDto
         {
-            Identificador = $"driver-{Guid.NewGuid()}",
             Nome = "João Silva",
             Cnpj = GenerateValidCNPJ(),
             Data_nascimento = new DateTime(1990, 5, 15),
@@ -40,7 +39,6 @@ public class DeliveryDriversControllerTests : IntegrationTestBase
         // Arrange
         var driver = new DeliveryDriverDto
         {
-            Identificador = "driver-invalid",
             Nome = "João Silva",
             Cnpj = GenerateValidCNPJ(),
             Data_nascimento = new DateTime(1990, 5, 15),

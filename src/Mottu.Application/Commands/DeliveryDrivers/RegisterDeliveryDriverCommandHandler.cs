@@ -52,7 +52,6 @@ public class RegisterDeliveryDriverCommandHandler : IRequestHandler<RegisterDeli
 
             // Create delivery driver entity
             var driver = DeliveryDriver.Create(
-                request.Identificador,
                 request.Nome,
                 request.Cnpj,
                 request.Data_nascimento,

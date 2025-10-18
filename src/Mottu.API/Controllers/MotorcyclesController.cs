@@ -29,7 +29,6 @@ public class MotorcyclesController : ControllerBase
     public async Task<IActionResult> RegisterMotorcycle([FromBody] MotorcycleDto request)
     {
         var command = new RegisterMotorcycleCommand(
-            request.Identificador!,
             request.Ano,
             request.Modelo!,
             request.Placa!);

@@ -42,7 +42,6 @@ public class RegisterMotorcycleCommandHandler : IRequestHandler<RegisterMotorcyc
 
             // Create motorcycle entity
             var motorcycle = Motorcycle.Create(
-                request.Identificador,
                 request.Ano,
                 request.Modelo,
                 request.Placa);
@@ -56,7 +55,7 @@ public class RegisterMotorcycleCommandHandler : IRequestHandler<RegisterMotorcyc
             // Publish domain event
             var domainEvent = new MotorcycleRegisteredEvent(
                 motorcycle.Id,
-                motorcycle.Identifier,
+                motorcycle.LicensePlate.Value, // Use license plate as identifier
                 motorcycle.Year,
                 motorcycle.Model,
                 motorcycle.LicensePlate);

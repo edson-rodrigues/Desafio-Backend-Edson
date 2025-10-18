@@ -27,7 +27,6 @@ public class GetMotorcyclesQueryHandler : IRequestHandler<GetMotorcyclesQuery, R
 
             var dtos = motorcycles.Select(m => new MotorcycleDto
             {
-                Identificador = m.Identifier,
                 Ano = m.Year,
                 Modelo = m.Model,
                 Placa = m.LicensePlate

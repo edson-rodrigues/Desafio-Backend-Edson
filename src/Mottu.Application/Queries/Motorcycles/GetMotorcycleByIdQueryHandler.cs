@@ -37,7 +37,6 @@ public class GetMotorcycleByIdQueryHandler : IRequestHandler<GetMotorcycleByIdQu
 
             var dto = new MotorcycleDto
             {
-                Identificador = motorcycle.Identifier,
                 Ano = motorcycle.Year,
                 Modelo = motorcycle.Model,
                 Placa = motorcycle.LicensePlate

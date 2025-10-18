@@ -17,11 +17,6 @@ public class MotorcycleConfiguration : IEntityTypeConfiguration<Motorcycle>
             .HasColumnName("id")
             .IsRequired();
 
-        builder.Property(m => m.Identifier)
-            .HasColumnName("identifier")
-            .HasMaxLength(100)
-            .IsRequired();
-
         builder.Property(m => m.Year)
             .HasColumnName("year")
             .IsRequired();
@@ -50,9 +45,6 @@ public class MotorcycleConfiguration : IEntityTypeConfiguration<Motorcycle>
         builder.HasIndex(m => m.LicensePlate)
             .IsUnique()
             .HasDatabaseName("ix_motorcycles_license_plate");
-
-        builder.HasIndex(m => m.Identifier)
-            .HasDatabaseName("ix_motorcycles_identifier");
     }
 }
 

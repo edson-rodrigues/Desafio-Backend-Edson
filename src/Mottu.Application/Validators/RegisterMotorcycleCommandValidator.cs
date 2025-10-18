@@ -7,9 +7,6 @@ public class RegisterMotorcycleCommandValidator : AbstractValidator<RegisterMoto
 {
     public RegisterMotorcycleCommandValidator()
     {
-        RuleFor(x => x.Identificador)
-            .NotEmpty().WithMessage("Identificador é obrigatório");
-
         RuleFor(x => x.Ano)
             .GreaterThan(1900).WithMessage("Ano deve ser maior que 1900")
             .LessThanOrEqualTo(DateTime.UtcNow.Year + 1).WithMessage($"Ano deve ser menor ou igual a {DateTime.UtcNow.Year + 1}");

@@ -28,13 +28,12 @@ public class DeliveryDriversController : ControllerBase
     public async Task<IActionResult> RegisterDeliveryDriver([FromBody] DeliveryDriverDto request)
     {
         var command = new RegisterDeliveryDriverCommand(
-            request.Identificador!,
             request.Nome!,
             request.Cnpj!,
             request.Data_nascimento,
             request.Numero_cnh!,
             request.Tipo_cnh!,
-            request.Imagem_cnh);
+            null); // Imagem será enviada separadamente via endpoint de upload
 
         var result = await _mediator.Send(command);
 

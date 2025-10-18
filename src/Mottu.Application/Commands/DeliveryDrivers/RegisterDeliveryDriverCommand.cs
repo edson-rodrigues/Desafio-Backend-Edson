@@ -4,7 +4,6 @@ using Mottu.Shared.Results;
 namespace Mottu.Application.Commands.DeliveryDrivers;
 
 public record RegisterDeliveryDriverCommand(
-    string Identificador,
     string Nome,
     string Cnpj,
     DateTime Data_nascimento,

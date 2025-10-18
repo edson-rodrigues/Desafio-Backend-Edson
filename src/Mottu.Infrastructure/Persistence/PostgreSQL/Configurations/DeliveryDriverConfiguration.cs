@@ -18,11 +18,6 @@ public class DeliveryDriverConfiguration : IEntityTypeConfiguration<DeliveryDriv
             .HasColumnName("id")
             .IsRequired();
 
-        builder.Property(d => d.Identifier)
-            .HasColumnName("identifier")
-            .HasMaxLength(100)
-            .IsRequired();
-
         builder.Property(d => d.Name)
             .HasColumnName("name")
             .HasMaxLength(200)
@@ -68,9 +63,6 @@ public class DeliveryDriverConfiguration : IEntityTypeConfiguration<DeliveryDriv
         builder.HasIndex(d => d.CNPJ)
             .IsUnique()
             .HasDatabaseName("ix_delivery_drivers_cnpj");
-
-        builder.HasIndex(d => d.Identifier)
-            .HasDatabaseName("ix_delivery_drivers_identifier");
     }
 }
 

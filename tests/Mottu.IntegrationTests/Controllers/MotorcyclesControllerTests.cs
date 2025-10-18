@@ -19,7 +19,6 @@ public class MotorcyclesControllerTests : IntegrationTestBase
         // Arrange
         var motorcycle = new MotorcycleDto
         {
-            Identificador = $"test-moto-{Guid.NewGuid()}",
             Ano = 2024,
             Modelo = "Honda CG 160",
             Placa = $"ABC{Random.Shared.Next(1000, 9999)}"
@@ -41,7 +40,6 @@ public class MotorcyclesControllerTests : IntegrationTestBase
         // Arrange
         var motorcycle = new MotorcycleDto
         {
-            Identificador = "test-moto-invalid",
             Ano = 2024,
             Modelo = "Honda CG 160",
             Placa = "INVALID" // Invalid format

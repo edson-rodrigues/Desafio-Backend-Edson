@@ -7,7 +7,6 @@ namespace Mottu.Domain.Entities;
 
 public class DeliveryDriver : Entity
 {
-    public string Identifier { get; private set; }
     public string Name { get; private set; }
     public CNPJ CNPJ { get; private set; }
     public DateTime DateOfBirth { get; private set; }
@@ -17,13 +16,11 @@ public class DeliveryDriver : Entity
 
     private DeliveryDriver(
         Guid id,
-        string identifier,
         string name,
         CNPJ cnpj,
         DateTime dateOfBirth,
         CNH cnh) : base(id)
     {
-        Identifier = identifier;
         Name = name;
         CNPJ = cnpj;
         DateOfBirth = dateOfBirth;
@@ -31,7 +28,6 @@ public class DeliveryDriver : Entity
     }
 
     public static DeliveryDriver Create(
-        string identifier,
         string name,
         string cnpj,
         DateTime dateOfBirth,
@@ -39,9 +35,6 @@ public class DeliveryDriver : Entity
         CNHType cnhType,
         string? cnhImagePath = null)
     {
-        if (string.IsNullOrWhiteSpace(identifier))
-            throw new DomainException("INVALID_IDENTIFIER", "Identifier cannot be empty");
-
         if (string.IsNullOrWhiteSpace(name))
             throw new DomainException("INVALID_NAME", "Name cannot be empty");
 
@@ -58,7 +51,7 @@ public class DeliveryDriver : Entity
         var cnpjValue = CNPJ.Create(cnpj);
         var cnhValue = CNH.Create(cnhNumber, cnhType, cnhImagePath);
 
-        return new DeliveryDriver(Guid.NewGuid(), identifier, name, cnpjValue, dateOfBirth, cnhValue);
+        return new DeliveryDriver(Guid.NewGuid(), name, cnpjValue, dateOfBirth, cnhValue);
     }
 
     public void UpdateCNHImage(string imagePath)
