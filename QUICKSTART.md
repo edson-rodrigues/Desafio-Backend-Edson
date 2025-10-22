@@ -1,31 +1,8 @@
 # 🚀 Quick Start Guide - Sistema de Aluguel de Motos
 
-## Execução em 3 Passos
+## Execução em 4 Passos
 
-### Windows (PowerShell)
-
-```powershell
-# 1. Execute o script de setup
-.\scripts\setup.ps1
-
-# 2. Aguarde ~30 segundos
-
-# 3. Acesse: http://localhost:5000
-```
-
-### Linux/Mac (Bash)
-
-```bash
-# 1. Dê permissão ao script
-chmod +x scripts/setup.sh
-
-# 2. Execute
-./scripts/setup.sh
-
-# 3. Acesse: http://localhost:5000
-```
-
-### Manual
+### Docker Compose
 
 ```bash
 # 1. Inicie todos os serviços
@@ -34,6 +11,10 @@ docker-compose up -d
 # 2. Aguarde ~30 segundos
 
 # 3. Acesse: http://localhost:5000
+
+# 4. Dentro da pasta raiz do projeto, aplique o comando para aplicar as migrations:
+
+dotnet ef database update --project "src/Mottu.Infrastructure/Mottu.Infrastructure.csproj" --startup-project "src/Mottu.API/Mottu.API.csproj" --connection "Host=localhost;Port=5432;Database=mottu_rental;Username=admin;Password=admin123"
 ```
 
 ## 🧪 Testando a API

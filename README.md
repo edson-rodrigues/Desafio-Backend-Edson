@@ -335,8 +335,6 @@ dotnet test tests/Sistema.ArchitectureTests
 ✅ **Testes de Arquitetura**: 10/14 passando (71%)  
 ✅ **Testes de Integração**: Prontos para executar  
 
-Consulte [TESTS_IMPLEMENTATION_SUMMARY.md](TESTS_IMPLEMENTATION_SUMMARY.md) para detalhes completos.
-
 ## 🎨 Design Patterns Implementados
 
 ### 1. Clean Architecture
@@ -496,4 +494,4 @@ Para produção, considere adicionar:
 
 ---
 
-**Sistema de Aluguel de Motos** - Solução completa desenvolvida por Edson 🏍️
+**Sistema de Aluguel de Motos** - Solução completa desenvolvida por Edson Gonçalves🏍️
